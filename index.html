@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrering</title>
+</head>
+<style>
+    *{
+        margin:0;
+        box-sizing:border-box;
+        padding:0;
+        Font-family:sans-serif;
+    }
+    body {
+        background-color: lightcoral;
+    }
+    p {
+        display: inline-block;
+        background-color: white;
+    }
+    p:nth-child(odd){
+        background-color: lightgrey;
+
+    }
+    article {
+        display:grid;
+        grid-template-columns: repeat(5, 1fr);
+        border: dotted 1px black
+
+    }
+</style>
+<body>
+
+
+
+
+<main>
+    <h1>Registrering</h1>
+    <form id="skjema">
+        <label for="fornavn">Fornavn:</label>
+        <input type="text" id="fornavn" placeholder="Sander" required>
+        <label for="etternavn">Etternavn:</label>
+        <input type="text" id="etternavn" placeholder="Skisland" required>
+        <label for="epost">E-postadresse:</label>
+        <input type="text" id="epost" placeholder="Sander.Skisland@hotmail.com" required>
+        <label for="telefonnummer">Telefonnummer:</label>
+        <input type="number" id="telefonnummer" placeholder="48094610" required>
+        <label for="beskrivelse">Telefonnummer:</label>
+        <input type="text" id="beskrivelse" placeholder="Jeg er feit" required>
+        <button id="button">Registrer</button>
+    </form>
+
+<h3>Registrert informasjon</h3>
+    <article id="liste">
+        <p>Foravn:</p>
+        <p>Etternavn:</p>
+        <p>Telefonnummer:</p>
+        <p>E-postadresse:</p>
+        <p>Beskrivlese</p>
+    </article>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBWbFE1Ash_DmZGM-PvL9zLCTC9BjiV1JU",
+        authDomain: "informasjonregistrering.firebaseapp.com",
+        databaseURL: "https://informasjonregistrering.firebaseio.com",
+        projectId: "informasjonregistrering",
+        storageBucket: "",
+        messagingSenderId: "785738930508"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script>
+    var database = firebase.database();
+    var info = database.ref("info");
+
+    var skjemaEl = document.getElementById("skjema");
+    var inpfornavnEl = document.getElementById("fornavn");
+    var inpetternavnEl = document.getElementById("etternavn");
+    var inpepostEl = document.getElementById("epost");
+    var inptelefonEl = document.getElementById("telefonnummer");
+    var listeEl = document.getElementById("liste");
+    var inpbeskrivelseEl = document.getElementById("beskrivelse")
+
+
+
+
+
+
+    function visInfo(snapshot) {
+        var info = snapshot.val();
+        listeEl.innerHTML +=
+            `<p>${info.Fornavn}</p><p> ${info.Etternavn} </p>  <p>${info.Epost}</p>  <p>${info.Telefonnummer}</p><p>
+${info.Beskrivlese}</p>`;
+    }
+
+    function registrer(evt) {
+        evt.preventDefault();
+            var nyinfo ={
+                "Fornavn" : inpfornavnEl.value,
+                "Etternavn" : inpetternavnEl.value,
+                "Epost" : inpepostEl.value,
+                "Telefonnummer" : inptelefonEl.value,
+                "Beskrivlese" : inpbeskrivelseEl.value
+            };
+        inpfornavnEl.value = "";
+        inpetternavnEl.value = "";
+        inpepostEl.value = "";
+        inptelefonEl.value = "";
+        info.push(nyinfo);
+
+    }
+
+    info.on("child_added", visInfo);
+    skjemaEl.onsubmit = registrer;
+
+
+</script>
+</body>
+</html>
