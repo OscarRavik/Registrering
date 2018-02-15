@@ -18,9 +18,20 @@
         display: inline-block;
         background-color: white;
     }
-    p:nth-child(odd){
+    p:nth-child(10n+1){
         background-color: lightgrey;
-
+    }
+    p:nth-child(10n+2){
+        background-color: lightgrey;
+    }
+    p:nth-child(10n+3){
+        background-color: lightgrey;
+    }
+    p:nth-child(10n+4){
+        background-color: lightgrey;
+    }
+    p:nth-child(10n+5){
+        background-color: lightgrey;
     }
     article {
         display:grid;
@@ -45,7 +56,7 @@
         <input type="text" id="epost" placeholder="Sander.Skisland@hotmail.com" required>
         <label for="telefonnummer">Telefonnummer:</label>
         <input type="number" id="telefonnummer" placeholder="48094610" required>
-        <label for="beskrivelse">Telefonnummer:</label>
+        <label for="beskrivelse">Beskrivelse:</label>
         <input type="text" id="beskrivelse" placeholder="Jeg er feit" required>
         <button id="button">Registrer</button>
     </form>
