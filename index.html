@@ -14,31 +14,25 @@
     body {
         background-color: lightcoral;
     }
-    p {
-        display: inline-block;
-        background-color: white;
+    h1, h3, form {
+        text-align: center;
+        margin: 20px;
     }
-    p:nth-child(10n+1){
+    table {
+        width: 100%;
+        border: black dotted 1px;
+        border-collapse: collapse;
+    }
+    td{
+        border: 1px solid black;
+    }
+    table tr {
+             background-color: white;
+    }
+    table tbody:nth-child(even) tr{
         background-color: lightgrey;
     }
-    p:nth-child(10n+2){
-        background-color: lightgrey;
-    }
-    p:nth-child(10n+3){
-        background-color: lightgrey;
-    }
-    p:nth-child(10n+4){
-        background-color: lightgrey;
-    }
-    p:nth-child(10n+5){
-        background-color: lightgrey;
-    }
-    article {
-        display:grid;
-        grid-template-columns: repeat(5, 1fr);
-        border: dotted 1px black
 
-    }
 </style>
 <body>
 
@@ -62,6 +56,16 @@
     </form>
 
 <h3>Registrert informasjon</h3>
+    <table id="liste">
+        <tr>
+            <td>Fornavn:</td>
+            <td>Etternavn:</td>
+            <td>Telefonnummer</td>
+            <td>E-postadresse</td>
+            <td>Beskrivelse</td>
+        </tr>
+    </table>
+    <!--
     <article id="liste">
         <p>Foravn:</p>
         <p>Etternavn:</p>
@@ -69,6 +73,7 @@
         <p>E-postadresse:</p>
         <p>Beskrivlese</p>
     </article>
+    -->
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
@@ -105,8 +110,8 @@
     function visInfo(snapshot) {
         var info = snapshot.val();
         listeEl.innerHTML +=
-            `<p>${info.Fornavn}</p><p> ${info.Etternavn} </p>  <p>${info.Epost}</p>  <p>${info.Telefonnummer}</p><p>
-${info.Beskrivlese}</p>`;
+            `<tr><td>${info.Fornavn}</td><td>${info.Etternavn}</td><td>${info.Epost}</td><td>${info.Telefonnummer}</td><td>${info.Beskrivlese}</td>
+</tr>`;
     }
 
     function registrer(evt) {
@@ -122,6 +127,7 @@ ${info.Beskrivlese}</p>`;
         inpetternavnEl.value = "";
         inpepostEl.value = "";
         inptelefonEl.value = "";
+        inpbeskrivelseEl.value = "";
         info.push(nyinfo);
 
     }
